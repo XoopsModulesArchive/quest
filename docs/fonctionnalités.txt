@@ -1,0 +1,34 @@
+Fonctionnalités de Quest
+- Nombre de questionnaires illimité
+- Nombre de répondants illimité
+- Nombre de personnes enquêtées illimité
+- Possibilité de pré publier des questionnaires et de décider d'une date de fermeture des réponses
+- Un questionnaire peut être géré (au niveau du commanditaire) par une ou plusieurs personnes (en fait un groupe)
+- La liste des personnes devant répondre est reliée à un groupe Xoops (cela permet donc de rajouter/supprimer des répondants
+  à la demande sans restriction)
+- Envoi automatique de mails pour indiquer aux personnes devant répondre l'adresse de réponse ainsi que leur login/mot de passe
+  Le sujet et le texte du mail sont crées par le commanditaire.
+- Relances automatiques par mail décidées par le commanditaire du questionnaire (avec un contenu crée par le commanditaire et une
+  fréquence de relances réglée aussi par le commanditaire)
+- Possibilité pour le commanditaire de récupérer des statistiques (temps réel) à tout moment ainsi qu'un export csv des réponses faites
+- Chaque questionnaire contient de 1 à n catégories (nombre illimité)
+- Dans chaque catégorie on dispose d'un nombre illimité de questions
+- Pour chaque question on a la possibilité d'avoir jusqu'à 2 séries de cases à cocher
+- Les cases à cocher se présentent sous la forme d'images générées dynamiquement afin d'avoir une présentation plus agréable
+- Les réponses sont enregistrées (via Ajax), en temps réel dès que l'on clic dessus. Cela permet de ne pas avoir de problèmes
+  lorsqu'un répondant commence à répondre à une catégorie/question puis décide de faire autre chose, les réponses ne sont pas perdues.
+- Pour chaque catégorie le répondant peut saisir de 0 à 3 commentaires
+- Possibilité de personnaliser le libellé de chaque commentaire par catégorie et possiblité de choisir le nombre de commentaires
+  auxquels il faut répondre par catégorie
+- Possibilité de faire des questionnaires avec ou sans cases à cocher et avec ou sans commentaires
+- Module sécurisé !
+- Des contrôles sont effectués pour vérifier que la personne qui répond à bien le droit de répondre à un questionnaire (pas
+  de possibilité de fraude)
+- Les dates, heure et adresses IP de chaque réponse sont enregistrées pour tracabilité
+- Mise à disposition de 2 blocs. Le premier affiche, pour chaque répondant, la liste des questionnaires (avec leur état) auxquel il
+  doit répondre.
+  Le deuxième bloc affiche, pour chaque répondant, la liste des catégories (avec leur état) du questionnaire en cours.
+  Les deux blocs sont mis à jour en temps réel.
+- Utilisation de tous les avantages de Xoops. Thèmes personnalisés, multilinguisme, sécurité, facilité de mise en place, possibilité
+  d'utilisation d'autres modules (sous réserve de notre accord) etc.
+

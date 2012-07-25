@@ -1,0 +1,112 @@
+07/08/2006 - 08/08/2006 - 09/08/2006
+- Dans la table questionnaires, rajout d'un champ "NbRelances" afin de connaître le nombre total de relances qui ont été faites par questionnaire (et modif de admin/relances.php)
+- Dans la table questionnaires, rajout du champ "ResetButton". Si ce champ est renseigné avec un texte, un bouton permettant de supprimer toutes ses réponses est alors affiché.
+	Rajout du script "reset_answers.php" à la racine du module. Il permet, suite à des vérifications, de supprimer toutes les réponses d'une personne à un questionnaire
+	Dans quest_category.html, rajout de :
+		<{if $text_to_delete_answers!=''}>
+			<a href="<{$xoops_url}>/modules/quest/reset_answers.php?IdQuestionnaire=<{$questionnaire.IdQuestionnaire}>" <{$confirmation_to_delete_answers}> title="<{$text_to_delete_answers}>"><{$text_to_delete_answers}></a>
+		<{/if}>
+	TODO: Vérifier que ca n'est pas nécessaire autre part
+
+22/07/2006 - 23/07/2006 - 26/07/2006 - 29/07/2006
+- Rajout de 2 champs dans la table questionnaires :
+	- Introduction		Qui contient un texte décrivant le questionnaire à destination des répondants
+	- GoOnAfterEnd		Champs qui permet de savoir si on peut modifier ses réponses après avoir terminé de réponde à un questionnaire
+- Dans quest_index.html, rajout des 2 lignes suivantes afin d'afficher le texte explicatif sur le questionnaire :
+	<th><{$smarty.const._QUEST_QUESTIONNAIRE_INTRODUCTION}></th>
+	<td><{$questionnaire.Introduction}></td>
+- Dans les répertoires de traduction, fichier main.php, rajout de :
+	define("_QUEST_PREVIOUS","Précédent");
+	define("_QUEST_NEXT","Next");
+	define("_QUEST_PRINT","Imprimer");
+	define("_QUEST_COMMENTS","Commentaires");
+	define("_QUEST_COMMENT","Commentaire");
+	define("_QUEST_QUESTIONS","Questions");
+	define("_QUEST_LEGEND","Légende");
+- Dans le bloc /xoops/modules/quest/templates/blocks/quest_block_questionnaire_list.html, rajout de :
+	<br /><{$un_questionnaire.Introduction}>
+- Modification de category.php afin de gérer les boutons "précédent" et "suivant" et "Imprimer"
+	Dans quest_category.html mise en commentaire de :
+	<{* <div align="center"><input type="reset" name="btnraz" value="<{$smarty.const._QUEST_RESET}>" /> <input type="submit" name="btnsubmit" value="<{$smarty.const._QUEST_SUBMIT}>" /></div> *}>
+	et rajout de :
+		<div align="center">
+			<{* <div align="center"><input type="reset" name="btnraz" value="<{$smarty.const._QUEST_RESET}>" /> <input type="submit" name="btnsubmit" value="<{$smarty.const._QUEST_SUBMIT}>" /></div> *}>
+			<{if $btn_prev}>
+				<a href='<{$btn_prev}>' title="<{$smarty.const._QUEST_PREVIOUS}>"><img alt="<{$smarty.const._QUEST_PREVIOUS}>" src='<{$xoops_url}>/modules/quest/images/back.gif' border='0' /></a>
+			<{/if}>
+			&nbsp;
+			<{if $btn_suiv}>
+				<a href='<{$btn_suiv}>' title="<{$smarty.const._QUEST_NEXT}>"><img alt="<{$smarty.const._QUEST_NEXT}>" src='<{$xoops_url}>/modules/quest/images/next.gif' border='0' /></a>
+			<{/if}>
+			&nbsp;
+			<img alt="<{$smarty.const._QUEST_PRINT}>" src='<{$xoops_url}>/modules/quest/images/print.gif' border='0' Onclick="javascript: window.print();" />
+		</div>
+- Modification de quest_category.html afin d'avoir, en haut, un lien direct vers les commentaires
+	<{if $comments_count==1}>
+		<div align="center"><a href='#comments' title="<{$smarty.const._QUEST_COMMENT}>"><{$smarty.const._QUEST_COMMENT}></a></div>
+	<{elseif $comments_count>1}>
+		<div align="center"><a href='#comments' title="<{$smarty.const._QUEST_COMMENTS}>"><{$smarty.const._QUEST_COMMENTS}></a></div>
+	<{/if}>
+
+	Remplacement de :
+		<{if $category.comment1 && $category.comment2 && $category.comment3}><h1>Commentaire(s)</h1><{/if}>
+	Par :
+		<{if $comments_count==1}>
+			<a name='comments'></a><h1><{$smarty.const._QUEST_COMMENT}></h1>
+		<{elseif $comments_count>1}>
+			<a name='comments'></a><h1><{$smarty.const._QUEST_COMMENTS}></h1>
+		<{/if}>
+
+	Remplacement de :
+		<h1>Questions</h1>
+	Par :
+		<h1><{$smarty.const._QUEST_QUESTIONS}></h1>
+
+	Remplacement de :
+		<h1>Légende</h1>
+	Par :
+		<h1><{$smarty.const._QUEST_LEGEND}></h1>
+
+- Ajout du préchargement des images dans la page category.php afin de gagner en temps d'affichage.
+	modification de quest_category.html, rajout de :
+	<{if $preloaded_cac}>
+		<script type="text/javascript">
+			<{foreach item=one_preloaded_cac from=$preloaded_cac}>
+				pre_img = new Image;
+				pre_img.src = "images/cac/<{$one_preloaded_cac}>";
+			<{/foreach}>
+		</script>
+	<{/if}>
+
+
+
+01/07/2006
+- Modification de la page de statut afin de supprimer la liste des répondants
+- Correction d'un beug dans l'export des données, lorsque la page était appelée depuis la page de statut, aucun séparateur de champs n'était utilisé
+- Rajout d'un test sur la date d'ouverture des questionnaires. Il était possible de répondre à des questionnaires en pré-publication (mais pas à des questionnaires expirés)
+- Rajout d'un champ à la table questionnaires (RelancesOption) afin de savoir qui on doit relancer, 1=Tout le monde (pas répondu ou partiellement répondu), 2=uniquement ceux qui n'ont pas du tout répondu
+- Rajout d'un script permettant de faire les relances dans /xoops/modules/quest/admin/relances.php
+  Les relances ne sont pas terminée (ou ne se sont pas bien déroulées), tant que le script n'affiche pas "Action terminée"
+- Rajout des champs "EmailFrom" et "EmailFromName" dans la table des questionnaires pour indiquer l'adresse email de l'expéditeur et le nom de l'expéditeur (le commanditaire en fait)
+- Correction d'un beug dans la page de statut
+
+30/06/2006
+- Finalisation de la page de statut
+
+24/06/2006
+- Suppression de la zone "PasswordDump" de la table questionnaires et remplacement par la zone "PartnerGroup"
+  qui correspond au groupe auquel le commanditaire doit faire partie
+- Modification de l'export (export.php) pour tenir compte de cette nouvelle zone
+- Dans la page permettant de répondre à un questionnaire, le titre de la page est composé du libellé du questionnaire suivi du libellé
+  de la catégorie en cours
+- Rajout de certains index dans les tables pour gain de temps dans les requête
+- Rajout d'un titre de page dans la page d'index
+- Rajout, dans les classes et fichiers inclus du code de vérification suivant :
+	if (!defined('XOOPS_ROOT_PATH')) {
+		die("XOOPS root path not defined");
+	}
+- Correction de bugs lorsqu'il n'y a pas de cases à cocher dans les catégories mais uniquement des zones de texte
+- Changement de nom pour le script d'export, il s'appelle maintenatn 'export.php'
+- Suppression de /xoops/modules/quest/blocks/quest_stats.php et du template associé pour remplacer par une page,
+  status.php (et de templates/quest_status.html) et mise à jour de xoops_version.php
+
