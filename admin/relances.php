@@ -38,7 +38,7 @@ $rubrcomment_handler = & xoops_getmodulehandler('rubrcomment', 'quest');
 $member_handler =& xoops_gethandler('member');
 
 if(function_exists('xoops_getMailer')) {
-	$xoopsMailer =& xoops_getMailer();
+	$xoopsMailer = xoops_getMailer();
 } else {
 	$xoopsMailer =& getMailer();
 }
